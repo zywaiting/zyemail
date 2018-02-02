@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heitian.ssm.mapping.SearchIteamMapper" >
+  <select id="getItemList" resultType="com.heitian.ssm.model.SearchItem">
+  	SELECT
+	zz.`name` AS label,
+	yy.`value` AS bank,
+	dd.`发送量` AS send,
+	dd.`成功量` AS success,
+	dd.`实际成功` AS truesuccess,
+	dd.`失败` AS fail,
+	dd.`未知` AS unknow,
+	dd.pv,
+	dd.uv,
+	dd.ip
+FROM
+	(
+		SELECT
+			pp.channel_id,
+			pp.bank,
+			pp.`发送量`,
+			pp.`实际成功` + pp.`未知` AS '成功量',
+			pp.`实际成功`,
+			pp.`失败`,
+			pp.`未知`,
+			qq.pv,
+			qq.uv,
+			qq.ip
+		FROM
+			(
+				SELECT
+					channel_id,
+					bank,
+					sum(IF(submit_status = 1, 1, 0)) AS '发送量',
+					sum(
+
+						IF (
+							(
+								submit_status = 1
+								AND send_status = 1
+							),
+							1,
+							0
+						)
+					) AS '实际成功',
+					sum(
+
+						IF (
+							(
+								submit_status = 1
+								AND send_status =- 1
+							),
+							1,
+							0
+						)
+					) AS '失败',
+					sum(
+
+						IF (
+							(
+								submit_status = 1
+								AND send_status = 0
+							),
+							1,
+							0
+						)
+					) AS '未知'
+				FROM
+					rp_credit_sms_cucc
+				WHERE
+					date_format(submit_time, '%y-%m-%d') = date_format(NOW(), '%y-%m-%d')
+
+				GROUP BY
+					channel_id,
+					bank
+			) pp
+		LEFT JOIN (
+			SELECT
+				channel_id,
+				bank,
+				count(mobile_id) AS 'pv',
+				count(DISTINCT mobile_id) AS 'uv',
+				count(DISTINCT ip) AS 'ip'
+			FROM
+				rp_credit_access_log
+			WHERE
+				date_format(submit_time, '%y-%m-%d') = date_format(NOW(), '%y-%m-%d')
+			AND date_format(create_time, '%y-%m-%d') = date_format(NOW(), '%y-%m-%d')
+			AND test = 0
+			GROUP BY
+				channel_id,
+				bank
+		) qq ON pp.channel_id = qq.channel_id
+		AND pp.bank = qq.bank
+	) dd,
+	rp_credit_sms_channel zz,
+	rp_credit_bank_config yy
+WHERE
+	yy.`name` = dd.bank
+AND dd.channel_id = zz.id
+ORDER BY
+	zz.`name`,
+	yy.`value`
+  </select>
+</mapper>

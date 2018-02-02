@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heitian.ssm.mapping.RpCreditSmsCmccMapper" >
+  <resultMap id="BaseResultMap" type="com.heitian.ssm.model.RpCreditSmsCmcc" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="mobile_id" property="mobileId" jdbcType="BIGINT" />
+    <result column="operator" property="operator" jdbcType="BIT" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="bank" property="bank" jdbcType="VARCHAR" />
+    <result column="label" property="label" jdbcType="VARCHAR" />
+    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="short_url" property="shortUrl" jdbcType="VARCHAR" />
+    <result column="submit_status" property="submitStatus" jdbcType="BIT" />
+    <result column="submit_time" property="submitTime" jdbcType="TIMESTAMP" />
+    <result column="task_id" property="taskId" jdbcType="VARCHAR" />
+    <result column="channel_id" property="channelId" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="send_status" property="sendStatus" jdbcType="BIT" />
+    <result column="send_time" property="sendTime" jdbcType="TIMESTAMP" />
+    <result column="sms_content" property="smsContent" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="TINYINT" />
+    <result column="modified_time" property="modifiedTime" jdbcType="TIMESTAMP" />
+    <result column="priority" property="priority" jdbcType="TINYINT" />
+    <result column="source" property="source" jdbcType="TINYINT" />
+    <result column="test" property="test" jdbcType="TINYINT" />
+    <result column="thread_pool" property="threadPool" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, mobile_id, operator, province, city, bank, label, uuid, short_url, submit_status, 
+    submit_time, task_id, channel_id, remark, send_status, send_time, sms_content, create_time, 
+    version, modified_time, priority, source, test, thread_pool
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.heitian.ssm.model.RpCreditSmsCmccExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from rp_credit_sms_cmcc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from rp_credit_sms_cmcc
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from rp_credit_sms_cmcc
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.heitian.ssm.model.RpCreditSmsCmccExample" >
+    delete from rp_credit_sms_cmcc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.heitian.ssm.model.RpCreditSmsCmcc" >
+    insert into rp_credit_sms_cmcc (id, mobile_id, operator, 
+      province, city, bank, 
+      label, uuid, short_url, 
+      submit_status, submit_time, task_id, 
+      channel_id, remark, send_status, 
+      send_time, sms_content, create_time, 
+      version, modified_time, priority, 
+      source, test, thread_pool
+      )
+    values (#{id,jdbcType=BIGINT}, #{mobileId,jdbcType=BIGINT}, #{operator,jdbcType=BIT}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{bank,jdbcType=VARCHAR}, 
+      #{label,jdbcType=VARCHAR}, #{uuid,jdbcType=VARCHAR}, #{shortUrl,jdbcType=VARCHAR}, 
+      #{submitStatus,jdbcType=BIT}, #{submitTime,jdbcType=TIMESTAMP}, #{taskId,jdbcType=VARCHAR}, 
+      #{channelId,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{sendStatus,jdbcType=BIT}, 
+      #{sendTime,jdbcType=TIMESTAMP}, #{smsContent,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{version,jdbcType=TINYINT}, #{modifiedTime,jdbcType=TIMESTAMP}, #{priority,jdbcType=TINYINT}, 
+      #{source,jdbcType=TINYINT}, #{test,jdbcType=TINYINT}, #{threadPool,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.heitian.ssm.model.RpCreditSmsCmcc" >
+    insert into rp_credit_sms_cmcc
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="mobileId != null" >
+        mobile_id,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="bank != null" >
+        bank,
+      </if>
+      <if test="label != null" >
+        label,
+      </if>
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="shortUrl != null" >
+        short_url,
+      </if>
+      <if test="submitStatus != null" >
+        submit_status,
+      </if>
+      <if test="submitTime != null" >
+        submit_time,
+      </if>
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="channelId != null" >
+        channel_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="sendStatus != null" >
+        send_status,
+      </if>
+      <if test="sendTime != null" >
+        send_time,
+      </if>
+      <if test="smsContent != null" >
+        sms_content,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="test != null" >
+        test,
+      </if>
+      <if test="threadPool != null" >
+        thread_pool,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="mobileId != null" >
+        #{mobileId,jdbcType=BIGINT},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=BIT},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="bank != null" >
+        #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null" >
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="shortUrl != null" >
+        #{shortUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="submitStatus != null" >
+        #{submitStatus,jdbcType=BIT},
+      </if>
+      <if test="submitTime != null" >
+        #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskId != null" >
+        #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null" >
+        #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sendStatus != null" >
+        #{sendStatus,jdbcType=BIT},
+      </if>
+      <if test="sendTime != null" >
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="smsContent != null" >
+        #{smsContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=TINYINT},
+      </if>
+      <if test="modifiedTime != null" >
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=TINYINT},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=TINYINT},
+      </if>
+      <if test="test != null" >
+        #{test,jdbcType=TINYINT},
+      </if>
+      <if test="threadPool != null" >
+        #{threadPool,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.heitian.ssm.model.RpCreditSmsCmccExample" resultType="java.lang.Integer" >
+    select count(*) from rp_credit_sms_cmcc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update rp_credit_sms_cmcc
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.mobileId != null" >
+        mobile_id = #{record.mobileId,jdbcType=BIGINT},
+      </if>
+      <if test="record.operator != null" >
+        operator = #{record.operator,jdbcType=BIT},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bank != null" >
+        bank = #{record.bank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.label != null" >
+        label = #{record.label,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uuid != null" >
+        uuid = #{record.uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shortUrl != null" >
+        short_url = #{record.shortUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.submitStatus != null" >
+        submit_status = #{record.submitStatus,jdbcType=BIT},
+      </if>
+      <if test="record.submitTime != null" >
+        submit_time = #{record.submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.taskId != null" >
+        task_id = #{record.taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.channelId != null" >
+        channel_id = #{record.channelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendStatus != null" >
+        send_status = #{record.sendStatus,jdbcType=BIT},
+      </if>
+      <if test="record.sendTime != null" >
+        send_time = #{record.sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.smsContent != null" >
+        sms_content = #{record.smsContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=TINYINT},
+      </if>
+      <if test="record.modifiedTime != null" >
+        modified_time = #{record.modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.priority != null" >
+        priority = #{record.priority,jdbcType=TINYINT},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=TINYINT},
+      </if>
+      <if test="record.test != null" >
+        test = #{record.test,jdbcType=TINYINT},
+      </if>
+      <if test="record.threadPool != null" >
+        thread_pool = #{record.threadPool,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update rp_credit_sms_cmcc
+    set id = #{record.id,jdbcType=BIGINT},
+      mobile_id = #{record.mobileId,jdbcType=BIGINT},
+      operator = #{record.operator,jdbcType=BIT},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      bank = #{record.bank,jdbcType=VARCHAR},
+      label = #{record.label,jdbcType=VARCHAR},
+      uuid = #{record.uuid,jdbcType=VARCHAR},
+      short_url = #{record.shortUrl,jdbcType=VARCHAR},
+      submit_status = #{record.submitStatus,jdbcType=BIT},
+      submit_time = #{record.submitTime,jdbcType=TIMESTAMP},
+      task_id = #{record.taskId,jdbcType=VARCHAR},
+      channel_id = #{record.channelId,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      send_status = #{record.sendStatus,jdbcType=BIT},
+      send_time = #{record.sendTime,jdbcType=TIMESTAMP},
+      sms_content = #{record.smsContent,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      version = #{record.version,jdbcType=TINYINT},
+      modified_time = #{record.modifiedTime,jdbcType=TIMESTAMP},
+      priority = #{record.priority,jdbcType=TINYINT},
+      source = #{record.source,jdbcType=TINYINT},
+      test = #{record.test,jdbcType=TINYINT},
+      thread_pool = #{record.threadPool,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.heitian.ssm.model.RpCreditSmsCmcc" >
+    update rp_credit_sms_cmcc
+    <set >
+      <if test="mobileId != null" >
+        mobile_id = #{mobileId,jdbcType=BIGINT},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=BIT},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="bank != null" >
+        bank = #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null" >
+        label = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null" >
+        uuid = #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="shortUrl != null" >
+        short_url = #{shortUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="submitStatus != null" >
+        submit_status = #{submitStatus,jdbcType=BIT},
+      </if>
+      <if test="submitTime != null" >
+        submit_time = #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskId != null" >
+        task_id = #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null" >
+        channel_id = #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sendStatus != null" >
+        send_status = #{sendStatus,jdbcType=BIT},
+      </if>
+      <if test="sendTime != null" >
+        send_time = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="smsContent != null" >
+        sms_content = #{smsContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=TINYINT},
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=TINYINT},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=TINYINT},
+      </if>
+      <if test="test != null" >
+        test = #{test,jdbcType=TINYINT},
+      </if>
+      <if test="threadPool != null" >
+        thread_pool = #{threadPool,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.heitian.ssm.model.RpCreditSmsCmcc" >
+    update rp_credit_sms_cmcc
+    set mobile_id = #{mobileId,jdbcType=BIGINT},
+      operator = #{operator,jdbcType=BIT},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      bank = #{bank,jdbcType=VARCHAR},
+      label = #{label,jdbcType=VARCHAR},
+      uuid = #{uuid,jdbcType=VARCHAR},
+      short_url = #{shortUrl,jdbcType=VARCHAR},
+      submit_status = #{submitStatus,jdbcType=BIT},
+      submit_time = #{submitTime,jdbcType=TIMESTAMP},
+      task_id = #{taskId,jdbcType=VARCHAR},
+      channel_id = #{channelId,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      send_status = #{sendStatus,jdbcType=BIT},
+      send_time = #{sendTime,jdbcType=TIMESTAMP},
+      sms_content = #{smsContent,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=TINYINT},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      priority = #{priority,jdbcType=TINYINT},
+      source = #{source,jdbcType=TINYINT},
+      test = #{test,jdbcType=TINYINT},
+      thread_pool = #{threadPool,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
